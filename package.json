@@ -1,0 +1,29 @@
+{
+  "name": "wito_back",
+  "version": "1.0.0",
+  "description": "L'application WITO permet de gérer la présence en cours des élèves via un système de QR code",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KilianCorbel/wito_back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KilianCorbel/wito_back/issues"
+  },
+  "homepage": "https://github.com/KilianCorbel/wito_back#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "mongoose": "^5.4.11",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "express": "^4.16.4"
+  }
+}
