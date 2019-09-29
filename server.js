@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+//ES6 promises
+mongoose.Promise = global.Promise;
+
 mongoose.connect("mongodb://localhost:27017/WITOBDD");
 var db = mongoose.connection;
 db.on('Error',console.error.bind(console, 'Error: erreur de connection à mongodb'));
@@ -30,4 +33,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//app.use('/path',require('./path/route'));
+app.use('/classes',require('./Classe/classeRoute'));
+app.use('/cours',require('./Cours/coursRoute'));
+app.use('/etudiants',require('./Etudiant/etudiantRoute'));
+app.use('/professeurs',require('./Professeur/professeurRoute'));
