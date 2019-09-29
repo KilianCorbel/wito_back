@@ -30,4 +30,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//app.use('/path',require('./path/route'));
+//Routes
+app.use("/etudiants", require("./Etudiant/etudiantRoute"));
+app.use("/professeurs", require("./Professeur/professeurRoute"));
+
