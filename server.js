@@ -34,6 +34,6 @@ app.use(function (req, res, next) {
 });
 
 //Routes
-app.use("/etudiants", require("./Etudiant/etudiantRoute"));
-app.use("/professeurs", require("./Professeur/professeurRoute"));
+app.post("/etudiants", require("./Etudiant/etudiantRoute"));
+app.post("/professeurs", require("./Professeur/professeurRoute"));
 
