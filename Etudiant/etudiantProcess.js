@@ -2,7 +2,7 @@ const auth = module.exports;
 const Etudiant = require("./etudiantModel");
 
 // AUTHENTIFICATION CONNEXION
-auth.checkAuth = function(req, res, next) {
+/*auth.checkAuth = function(req, res, next) {
     if (!req.body.login || !req.body.mdp) {
       //Le cas où login ou bien le password ne serait pas soumit ou nul
       res.status(400).json({
@@ -38,3 +38,4 @@ auth.checkAuth = function(req, res, next) {
       });
     }
   };
+  */
