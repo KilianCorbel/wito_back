@@ -46,7 +46,7 @@ auth.checkAuth = function(req, res, next) {
 auth.processCreate = async function(req, mdp) {
     console.log("Process : Professeur - CREATE :" + req.body.nom);
 
-    newProfesseur = new Professeur({numeroProfesseur:req.body.numeroProfesseur, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, mdp:mdp});
+    newProfesseur = new Professeur({numeroProfesseur:req.body.numeroProfesseur, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp});
 
     return await newProfesseur.save();
 };
