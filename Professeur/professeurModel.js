@@ -18,7 +18,9 @@ const professeurSchema = new mongoose.Schema({
     },
     mail : {
         type : String,
-        required : true
+        unique: true,
+        required : true,
+        regex: new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
     },
     login : {
         type : String,

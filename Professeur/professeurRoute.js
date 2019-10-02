@@ -1,6 +1,16 @@
-const router = require("express").Router();
-const professeurAction = require("./professeurAction");
+const express = require('express');
+const router = express.Router();
+
+// -- Load model needed for the project
+const professeurAction = require('./professeurAction');
+
+const lienConnection = "/login";
+const lienCreate = '/create';
+
 //--Connexion
-router.post("/login", professeurAction.checkAuth);
+router.post(lienConnection, professeurAction.checkAuth);
+
+// -- CREATE
+router.post(lienCreate, professeurAction.actionCreate);
 
 module.exports = router;

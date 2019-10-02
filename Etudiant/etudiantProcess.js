@@ -1,5 +1,8 @@
+const mongoose = require('mongoose');
 const auth = module.exports;
 const Etudiant = require("./etudiantModel");
+
+ObjectId = mongoose.Types.ObjectId;
 
 // AUTHENTIFICATION CONNEXION
 auth.checkAuth = function(req, res, next) {
@@ -37,5 +40,13 @@ auth.checkAuth = function(req, res, next) {
         }
       });
     }
-  };
-  
+};
+
+// -- CREATE
+auth.processCreate = async function(req, mdp) {
+    console.log("Process : Etudiant - CREATE :" + req.body.nom);
+
+    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp});
+
+    return await newEtudiant.save();
+};
