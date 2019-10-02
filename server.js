@@ -33,7 +33,8 @@ app.use(function (req, res, next) {
     next();
 });
 
+//Routes
 app.use('/classes',require('./Classe/classeRoute'));
 app.use('/cours',require('./Cours/coursRoute'));
-app.use('/etudiants',require('./Etudiant/etudiantRoute'));
-app.use('/professeurs',require('./Professeur/professeurRoute'));
+app.use("/etudiants", require("./Etudiant/etudiantRoute"));
+app.use("/professeurs", require("./Professeur/professeurRoute"));

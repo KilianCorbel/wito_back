@@ -1,4 +1,5 @@
 const express = require('express');
+//const router = express.Router();
 const bodyParser = require('body-parser');
 
 app = express();
@@ -9,11 +10,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
 // -- Load model needed for the project
-const action = require('./professeurAction');
+const professeurAction = require('./professeurAction');
 
+const lienConnection = "/login";
 const lienCreate = '/create';
 
+//--Connexion
+app.post(lienConnection, professeurAction.checkAuth);
+
 // -- CREATE
-app.post(lienCreate, action.actionCreate);
+app.post(lienCreate, professeurAction.actionCreate);
 
 module.exports = app;

@@ -1,9 +1,15 @@
 // -- Load model needed for the project
-const process = require('./professeurProcess');
+const ProfesseurProcess = require('./professeurProcess');
 const bcrypt = require('bcrypt');
+let auth = module.exports;
+
+// Connexion
+auth.checkAuth = function(req, res, next) {
+    ProfesseurProcess.checkAuth(req, res);
+};
 
 // -- CREATE
-async function actionCreate (req, res) {
+auth.actionCreate = async function(req, res) {
     console.log("Action : Professeur - CREATE");
 
     try{        
@@ -14,7 +20,7 @@ async function actionCreate (req, res) {
             });
         })
 
-        process.processCreate(req, mdp).then((callback) => {
+        ProfesseurProcess.processCreate(req, mdp).then((callback) => {
             console.log("Process : Professeur - CREATE : " + callback);
 
             res.send(callback);
@@ -25,5 +31,3 @@ async function actionCreate (req, res) {
         res.send(err);
     }
 };
-
-exports.actionCreate = actionCreate;
