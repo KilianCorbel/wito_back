@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 //model pour un etudiant
 
 const etudiantSchema = new mongoose.Schema({
@@ -33,7 +33,7 @@ const etudiantSchema = new mongoose.Schema({
 });
 
 // ----- fonctions pour la connexion -----
-etudiantSchema.methods = {
+/*etudiantSchema.methods = {
     authenticate: function(password) {
       return bcrypt.compareSync(password, this.mdp);
     },
@@ -42,6 +42,7 @@ etudiantSchema.methods = {
         return re.test(email);
       }
   };
+  */
   
 etudiantSchema.methods.getToken = function() {
     console.log(this.token);
