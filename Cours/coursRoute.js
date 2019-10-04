@@ -5,8 +5,20 @@ const router = express.Router();
 const coursAction = require('./coursAction');
 
 const lienCreate = '/create';
+const lienUpdate = '/update/:id';
+const lienDelete = '/delete/:id';
+const lienGet = '/get/:id';
 
 // -- CREATE
 router.post(lienCreate, coursAction.actionCreate);
+
+// -- UPDATE
+router.put(lienUpdate, coursAction.actionUpdate);
+
+// -- DELETE
+router.delete(lienDelete, coursAction.actionDelete);
+
+// -- READ ID
+router.get(lienGet, coursAction.actionRead);
 
 module.exports = router;
