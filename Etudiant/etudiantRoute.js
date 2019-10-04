@@ -5,6 +5,7 @@ const router = express.Router();
 const etudiantAction = require('./etudiantAction');
 
 const lienConnection = "/login";
+const lienAll = '/';
 const lienCreate = '/create';
 const lienUpdate = '/update/:id';
 const lienDelete = '/delete/:id';
@@ -12,6 +13,9 @@ const lienGet = '/get/:id';
 
 //--Connexion
 router.post(lienConnection, etudiantAction.checkAuth);
+
+// -- FIND ALL
+router.get(lienAll, etudiantAction.actionFindAll);
 
 // -- CREATE
 router.post(lienCreate, etudiantAction.actionCreate);

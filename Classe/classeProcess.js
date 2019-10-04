@@ -7,7 +7,7 @@ ObjectId = mongoose.Types.ObjectId;
 async function processCreate (req, mdp) {
     console.log("Process : Classe - CREATE :" + req.body.nom);
 
-    newClasse = new Classe({idClasse:req.body.idClasse, nom:req.body.nom, heureD:req.body.heureD, heureF:req.body.heureF, date: req.body.date, salle:req.body.salle});
+    newClasse = new Classe({idClasse:req.body.idClasse, filiere:req.body.filiere, annee:req.body.annee});
 
     return await newClasse.save();
 };
