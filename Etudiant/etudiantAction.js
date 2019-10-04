@@ -31,5 +31,59 @@ async function actionCreate (req, res) {
     }
 };
 
+// -- UPDATE
+function actionUpdate (req, res) {
+    console.log("Action : Etudiant - UPDATE");
+
+    try{
+        EtudiantProcess.processUpdate(req.params.id, req.body).then((callback) => {
+            console.log("Process : Etudiant - UPDATE : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    } catch(err) {
+        console.log("Process : Etudiant - UPDATE : Error - " + err);
+
+        res.send(err);
+    }
+};
+
+// -- DELETE
+function actionDelete (req, res) {
+    console.log("Action : Etudiant - DELETE");
+
+    try{
+        EtudiantProcess.processDelete(req).then((callback) => {
+            console.log("Process : Etudiant - DELETE : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    } catch(err) {
+        console.log("Process : Etudiant - DELETE : Error - " + err);
+
+        res.send(err);
+    }
+};
+
+// -- READ ID
+function actionRead (req, res) {
+    console.log("Action : Etudiant - READ ID");
+    
+    try{
+        EtudiantProcess.processRead(req).then((callback) => {
+            console.log("Process : Etudiant - READ ID : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    } catch(err) {
+        console.log("Process : Etudiant - READ ID : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 exports.checkAuth = checkAuth;
 exports.actionCreate = actionCreate;
+exports.actionUpdate = actionUpdate;
+exports.actionDelete = actionDelete;
+exports.actionRead = actionRead;

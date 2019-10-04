@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const auth = module.exports;
 const Etudiant = require("./etudiantModel");
 
 ObjectId = mongoose.Types.ObjectId;
@@ -50,5 +51,29 @@ async function processCreate (req, mdp) {
     return await newEtudiant.save();
 };
 
+// -- UPDATE
+async function processUpdate (id, body) {
+    console.log("Process : Etudiant - UPDATE id : " + id);
+    
+    return await Etudiant.updateOne({_id : new ObjectId(id)}, {$set : body});
+};
+
+// -- DELETE
+async function processDelete (req) {
+    console.log("Process : Etudiant - DELETE id : " + req.params.id);
+    
+    return await Etudiant.find({_id : new ObjectId(req.params.id)}).deleteOne();
+};
+
+// -- READ ID
+async function processRead (req) {
+    console.log("Process : Etudiant - READ id : " + new ObjectId(req.params.id));
+
+    return await Etudiant.findOne({_id : new ObjectId(req.params.id)});
+};
+
 exports.checkAuth = checkAuth;
 exports.processCreate = processCreate;
+exports.processUpdate = processUpdate;
+exports.processDelete = processDelete;
+exports.processRead = processRead;
