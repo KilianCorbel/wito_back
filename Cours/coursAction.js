@@ -3,7 +3,7 @@ const CoursProcess = require('./coursProcess');
 let auth = module.exports;
 
 // -- CREATE
-auth.actionCreate = async function(req, res) {
+async function actionCreate (req, res) {
     console.log("Action : Cours - CREATE");
 
     try{
@@ -18,3 +18,5 @@ auth.actionCreate = async function(req, res) {
         res.send(err);
     }
 };
+
+exports.actionCreate = actionCreate;

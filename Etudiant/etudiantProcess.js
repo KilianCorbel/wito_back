@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const auth = module.exports;
 const Etudiant = require("./etudiantModel");
 
 ObjectId = mongoose.Types.ObjectId;
 
 // AUTHENTIFICATION CONNEXION
-auth.checkAuth = function(req, res, next) {
+function checkAuth (req, res, next) {
     if (!req.body.login || !req.body.mdp) {
       //Le cas où login ou bien le password ne serait pas soumit ou nul
       res.status(400).json({
@@ -43,10 +42,13 @@ auth.checkAuth = function(req, res, next) {
 };
 
 // -- CREATE
-auth.processCreate = async function(req, mdp) {
+async function processCreate (req, mdp) {
     console.log("Process : Etudiant - CREATE :" + req.body.nom);
 
     newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp});
 
     return await newEtudiant.save();
 };
+
+exports.checkAuth = checkAuth;
+exports.processCreate = processCreate;
