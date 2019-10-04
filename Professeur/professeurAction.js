@@ -7,6 +7,23 @@ function checkAuth (req, res, next) {
     ProfesseurProcess.checkAuth(req, res);
 };
 
+// -- FIND ALL
+function actionFindAll (req, res) {
+    console.log("Action : Professeur - FIND ALL");
+
+    try{
+        ProfesseurProcess.processFindAll().then((callback) => {
+            console.log("Process : Professeur - FIND ALL : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    } catch(err) {
+        console.log("Process : Professeur - FIND ALL : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 // -- CREATE
 async function actionCreate (req, res) {
     console.log("Action : Professeur - CREATE");
@@ -83,6 +100,7 @@ function actionRead (req, res) {
 };
 
 exports.checkAuth = checkAuth;
+exports.actionFindAll = actionFindAll;
 exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;

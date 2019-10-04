@@ -42,6 +42,13 @@ function checkAuth (req, res, next) {
     }
 };
 
+// -- FIND ALL
+async function processFindAll () {
+  console.log("Process : Professeur - FIND ALL");
+
+  return await Professeur.find();
+};
+
 // -- CREATE
 async function processCreate (req, mdp) {
     console.log("Process : Professeur - CREATE :" + req.body.nom);
@@ -73,6 +80,7 @@ async function processRead (req) {
 };
 
 exports.checkAuth = checkAuth;
+exports.processFindAll = processFindAll;
 exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
