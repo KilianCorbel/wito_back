@@ -1,15 +1,14 @@
 // -- Load model needed for the project
 const EtudiantProcess = require('./etudiantProcess');
 const bcrypt = require('bcrypt');
-let auth = module.exports;
 
 // Connexion
-auth.checkAuth = function(req, res, next) {
+function checkAuth (req, res, next) {
     EtudiantProcess.checkAuth(req, res);
 };
 
 // -- CREATE
-auth.actionCreate = async function(req, res) {
+async function actionCreate (req, res) {
     console.log("Action : Etudiant - CREATE");
 
     try{        
@@ -31,3 +30,6 @@ auth.actionCreate = async function(req, res) {
         res.send(err);
     }
 };
+
+exports.checkAuth = checkAuth;
+exports.actionCreate = actionCreate;
