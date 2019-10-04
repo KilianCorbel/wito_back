@@ -51,5 +51,29 @@ async function processCreate (req, mdp) {
     return await newProfesseur.save();
 };
 
+// -- UPDATE
+async function processUpdate (id, body) {
+    console.log("Process : Professeur - UPDATE id : " + id);
+    
+    return await Professeur.updateOne({_id : new ObjectId(id)}, {$set : body});
+};
+
+// -- DELETE
+async function processDelete (req) {
+    console.log("Process : Professeur - DELETE id : " + req.params.id);
+    
+    return await Professeur.find({_id : new ObjectId(req.params.id)}).deleteOne();
+};
+
+// -- READ ID
+async function processRead (req) {
+    console.log("Process : Professeur - READ id : " + new ObjectId(req.params.id));
+
+    return await Professeur.findOne({_id : new ObjectId(req.params.id)});
+};
+
 exports.checkAuth = checkAuth;
 exports.processCreate = processCreate;
+exports.processUpdate = processUpdate;
+exports.processDelete = processDelete;
+exports.processRead = processRead;
