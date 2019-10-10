@@ -3,6 +3,13 @@ const Classe = require("./classeModel");
 
 ObjectId = mongoose.Types.ObjectId;
 
+// -- FIND ALL
+async function processFindAll () {
+  console.log("Process : Classe - FIND ALL");
+
+  return await Classe.find();
+};
+
 // -- CREATE
 async function processCreate (req, mdp) {
     console.log("Process : Classe - CREATE :" + req.body.nom);
@@ -33,6 +40,7 @@ async function processRead (req) {
     return await Classe.findOne({_id : new ObjectId(req.params.id)});
 };
 
+exports.processFindAll = processFindAll;
 exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;

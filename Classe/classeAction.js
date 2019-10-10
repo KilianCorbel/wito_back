@@ -2,6 +2,23 @@
 const ClasseProcess = require('./classeProcess');
 let auth = module.exports;
 
+// -- FIND ALL
+function actionFindAll (req, res) {
+    console.log("Action : Classe - FIND ALL");
+
+    try{
+        ClasseProcess.processFindAll().then((callback) => {
+            console.log("Process : Classe - FIND ALL : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    } catch(err) {
+        console.log("Process : Classe - FIND ALL : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 // -- CREATE
 async function actionCreate (req, res) {
     console.log("Action : Classe - CREATE");
@@ -70,6 +87,7 @@ function actionRead (req, res) {
     }
 };
 
+exports.actionFindAll = actionFindAll;
 exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;

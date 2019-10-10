@@ -11,7 +11,7 @@ const lienDelete = '/delete/:id';
 const lienGet = '/get/:id';
 
 // -- FIND ALL
-router.get(lienAll, professeurAction.actionFindAll);
+router.get(lienAll, coursAction.actionFindAll);
 
 // -- CREATE
 router.post(lienCreate, coursAction.actionCreate);
