@@ -41,6 +41,13 @@ function checkAuth (req, res, next) {
     }
 };
 
+// -- FIND ALL
+async function processFindAll () {
+  console.log("Process : Etudiant - FIND ALL");
+
+  return await Etudiant.find();
+};
+
 // -- CREATE
 async function processCreate (req, mdp) {
     console.log("Process : Etudiant - CREATE :" + req.body.nom);
@@ -50,5 +57,39 @@ async function processCreate (req, mdp) {
     return await newEtudiant.save();
 };
 
+// -- CREATE
+async function processCreate (req, mdp) {
+    console.log("Process : Etudiant - CREATE :" + req.body.nom);
+
+    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp});
+
+    return await newEtudiant.save();
+};
+
+// -- UPDATE
+async function processUpdate (id, body) {
+    console.log("Process : Etudiant - UPDATE id : " + id);
+    
+    return await Etudiant.updateOne({_id : new ObjectId(id)}, {$set : body});
+};
+
+// -- DELETE
+async function processDelete (req) {
+    console.log("Process : Etudiant - DELETE id : " + req.params.id);
+    
+    return await Etudiant.find({_id : new ObjectId(req.params.id)}).deleteOne();
+};
+
+// -- READ ID
+async function processRead (req) {
+    console.log("Process : Etudiant - READ id : " + new ObjectId(req.params.id));
+
+    return await Etudiant.findOne({_id : new ObjectId(req.params.id)});
+};
+
 exports.checkAuth = checkAuth;
+exports.processFindAll = processFindAll;
 exports.processCreate = processCreate;
+exports.processUpdate = processUpdate;
+exports.processDelete = processDelete;
+exports.processRead = processRead;
