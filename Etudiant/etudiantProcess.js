@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const auth = module.exports;
 const Etudiant = require("./etudiantModel");
 
 ObjectId = mongoose.Types.ObjectId;
