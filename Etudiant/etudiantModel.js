@@ -21,6 +21,10 @@ const etudiantSchema = new mongoose.Schema({
         required : true,
         regex: new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
     },
+    idClasse : {
+      type : String,
+      required : true
+    },
     login : {
         type : String,
         required : true
