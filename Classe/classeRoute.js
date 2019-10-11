@@ -5,10 +5,10 @@ const router = express.Router();
 const classeAction = require('./classeAction');
 
 const lienAll = '/';
-const lienCreate = '/create';
-const lienUpdate = '/update/:id';
-const lienDelete = '/delete/:id';
-const lienGet = '/get/:id';
+const lienCreate = '/';
+const lienUpdate = '/:id';
+const lienDelete = '/:id';
+const lienGet = '/:id';
 
 // -- FIND ALL
 router.get(lienAll, classeAction.actionFindAll);
