@@ -3,10 +3,6 @@ const bcrypt = require("bcrypt");
 //model pour un etudiant
 
 const etudiantSchema = new mongoose.Schema({
-    numeroEtudiant : {
-        type : String,
-        required : true,
-    },
     nom : {
         type :  String,
         required : true,
@@ -20,10 +16,6 @@ const etudiantSchema = new mongoose.Schema({
         unique: true,
         required : true,
         regex: new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-    },
-    idClasse : {
-      type : String,
-      required : true
     },
     login : {
         type : String,
