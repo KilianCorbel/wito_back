@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 //model pour un etudiant
 
 const etudiantSchema = new mongoose.Schema({
-    nom : {
+  nom : {
         type :  String,
         required : true,
     },
