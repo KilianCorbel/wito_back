@@ -10,12 +10,8 @@ const classeSchema = new mongoose.Schema({
     annee : {
         type :  String,
         required : true,
-    },
-    idClasse : {
-        type : String,
-        required : true
     }
-
+    
 });
 
 const Classe = mongoose.model("Classe", classeSchema);

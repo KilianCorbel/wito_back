@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 //model pour un cours
 
 const coursSchema = new mongoose.Schema({
-    idCours : {
-        type : String,
-        required : true,
-    },
     nom : {
         type :  String,
         required : true,
