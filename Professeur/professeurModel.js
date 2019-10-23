@@ -4,10 +4,6 @@ const bcrypt = require("bcrypt");
 //model pour un professeur
 
 const professeurSchema = new mongoose.Schema({
-    numeroProfesseur : {
-        type : String,
-        required : true,
-    },
     nom : {
         type :  String,
         required : true,
