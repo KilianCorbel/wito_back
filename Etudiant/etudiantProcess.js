@@ -8,17 +8,20 @@ function checkAuth (req, res, next) {
     if (!req.body.login || !req.body.mdp) {
       //Le cas où login ou bien le password ne serait pas soumit ou nul
       res.status(400).json({
-        text: "Mot de passe vide ou login vide"
+        text: "Erreur",
+        descritpion: "Mot de passe vide ou login vide"
       });
     } else {
         Etudiant.findOne({ login: req.body.login }, function(err, etudiant) {
         if (err) {
           res.status(500).json({
-            text: "Erreur interne"
+            text: "Erreur",
+            descritpion: "Erreur interne"
           });
         } else if (!etudiant) {
           res.status(401).json({
-            text: "L'utilisateur n'existe pas"
+            text: "Erreur",
+            descritpion: "L'utilisateur n'existe pas"
           });
         } else {
           if (etudiant.authenticate(req.body.mdp)) {
@@ -33,7 +36,8 @@ function checkAuth (req, res, next) {
           } else {
             console.log("not connected");
             res.status(401).json({
-              text: "Mot de passe incorrect"
+              text: "Erreur",
+              descritpion: "Mot de passe incorrect"
             });
           }
         }
