@@ -39,6 +39,10 @@ async function actionCreate (req, res) {
         ProfesseurProcess.processCreate(req, mdp).then((callback) => {
             console.log("Process : Professeur - CREATE : " + callback);
 
+            if(callback.name){
+                console.log("Process : Professeur - CREATE name : " + callback.name);
+            }
+
             res.send(callback);
         });
     } catch(err) {
