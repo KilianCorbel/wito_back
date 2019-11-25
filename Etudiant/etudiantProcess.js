@@ -31,6 +31,7 @@ function checkAuth (req, res, next) {
               prenom: etudiant.prenom,
               nom: etudiant.nom,
               id: etudiant._id,
+              role:"Etudiant",
               token: etudiant.getToken()
             });
           } else {

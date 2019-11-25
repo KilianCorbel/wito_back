@@ -14,7 +14,7 @@ async function processFindAll () {
 async function processCreate (req, mdp) {
     console.log("Process : Classe - CREATE :" + req.body.nom);
 
-    newClasse = new Classe({idClasse:req.body.idClasse, filiere:req.body.filiere, annee:req.body.annee});
+    newClasse = new Classe({filiere:req.body.filiere, annee:req.body.annee, label:req.body.label});
 
     return await newClasse.save();
 };

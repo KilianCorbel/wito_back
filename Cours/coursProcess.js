@@ -7,14 +7,14 @@ ObjectId = mongoose.Types.ObjectId;
 async function processFindAll () {
   console.log("Process : Cours - FIND ALL");
 
-  return await Cours.find();
+  return await Cours.find().populate('classe').populate('professeur');
 };
 
 // -- CREATE
 async function processCreate (req, mdp) {
     console.log("Process : Cours - CREATE :" + req.body.nom);
 
-    newCours = new Cours({idCours:req.body.idCours, nom:req.body.nom, heureD:req.body.heureD, heureF:req.body.heureF, date: req.body.date, salle:req.body.salle});
+    newCours = new Cours({nom:req.body.nom, date: req.body.date, heureD:req.body.heureD, heureF:req.body.heureF, salle:req.body.salle, classe:req.body.classe, professeur:req.body.professeur});
 
     return await newCours.save();
 };

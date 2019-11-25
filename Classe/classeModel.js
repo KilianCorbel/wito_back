@@ -10,8 +10,11 @@ const classeSchema = new mongoose.Schema({
     annee : {
         type :  String,
         required : true,
+    },
+    label : {
+        type :  String,
+        required : true,
     }
-    
 });
 
 const Classe = mongoose.model("Classe", classeSchema);

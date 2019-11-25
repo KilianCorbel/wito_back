@@ -31,6 +31,7 @@ function checkAuth (req, res, next) {
               prenom: professeur.prenom,
               nom: professeur.nom,
               id: professeur._id,
+              role:"Professeur",
               token: professeur.getToken()
             });
           } else {
