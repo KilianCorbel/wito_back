@@ -1,6 +1,6 @@
 // -- Load model needed for the project
 const EtudiantProcess = require('./etudiantProcess');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 // Connexion
 function checkAuth (req, res, next) {
@@ -28,13 +28,16 @@ function actionFindAll (req, res) {
 async function actionCreate (req, res) {
     console.log("Action : Etudiant - CREATE");
 
-    try{        
+    try{ 
+        /*       
         mdp = await new Promise((resolve, reject) => {
             bcrypt.hash(req.body.mdp, 10, async function (err, hash){
                 console.log("Action : Etudiant - hash : " + hash);
                 resolve(hash);
             });
         })
+        */
+        mdp = req.body.mdp;
 
         EtudiantProcess.processCreate(req, mdp).then((callback) => {
             console.log("Process : Etudiant - CREATE : " + callback);

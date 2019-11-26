@@ -41,3 +41,13 @@ app.use('/classes',require('./Classe/classeRoute'));
 app.use('/cours',require('./Cours/coursRoute'));
 app.use("/etudiants", require("./Etudiant/etudiantRoute"));
 app.use("/professeurs", require("./Professeur/professeurRoute"));
+
+/*
+  const Classe = require("./Classe/classeModel");
+  new Classe({filiere:"MIAGE INI", annee:"L3", label:"L3 MIAGE INI"}).save();
+  new Classe({filiere:"MIAGE ALT", annee:"L3", label:"L3 MIAGE ALT"}).save();
+  new Classe({filiere:"MIAGE INI", annee:"M1", label:"M1 MIAGE INI"}).save();
+  new Classe({filiere:"MIAGE ALT", annee:"M1", label:"M1 MIAGE ALT"}).save();
+  new Classe({filiere:"MIAGE INI", annee:"M2", label:"M2 MIAGE INI"}).save();
+  new Classe({filiere:"MIAGE ALT", annee:"M2", label:"M2 MIAGE ALT"}).save();
+*/

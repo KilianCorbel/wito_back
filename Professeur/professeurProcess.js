@@ -64,7 +64,7 @@ async function processCreate (req, mdp) {
     console.log("Process : Professeur - CREATE :" + req.body.nom);
 
     try{  
-      newProfesseur = new Professeur({numeroProfesseur:req.body.numeroProfesseur, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp});
+      newProfesseur = new Professeur({numeroProfesseur:req.body.numeroProfesseur, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, mdp:mdp});
 
       return await newProfesseur.save();
     } catch(err) {

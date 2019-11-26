@@ -57,7 +57,7 @@ async function processFindAll () {
 async function processCreate (req, mdp) {
     console.log("Process : Etudiant - CREATE :" + req.body.nom);
 
-    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp});
+    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, mdp:mdp});
 
     return await newEtudiant.save();
 };
