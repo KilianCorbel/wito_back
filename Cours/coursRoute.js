@@ -9,6 +9,7 @@ const lienCreate = '/';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
+const lienPresent = '/present/:id';
 
 // -- FIND ALL
 router.get(lienAll, coursAction.actionFindAll);
@@ -24,5 +25,8 @@ router.delete(lienDelete, coursAction.actionDelete);
 
 // -- READ ID
 router.get(lienGet, coursAction.actionRead);
+
+// -- UPDATE PRESENT
+router.get(lienPresent, coursAction.actionUpdatePresent);
 
 module.exports = router;

@@ -53,11 +53,18 @@ async function processFindAll () {
   return await Etudiant.find();
 };
 
+// -- FIND BY CLASSE
+async function processFindByClasse(req) {
+  console.log("Process : Etudiant - FIND by classe : " + new ObjectId(req.params.id));
+
+  return await Etudiant.find({classe : new ObjectId(req.params.id)});
+};
+
 // -- CREATE
 async function processCreate (req, mdp) {
     console.log("Process : Etudiant - CREATE :" + req.body.nom);
 
-    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, mdp:mdp});
+    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, mdp:mdp, classe:req.body.classe});
 
     return await newEtudiant.save();
 };
@@ -66,7 +73,7 @@ async function processCreate (req, mdp) {
 async function processCreate (req, mdp) {
     console.log("Process : Etudiant - CREATE :" + req.body.nom);
 
-    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp});
+    newEtudiant = new Etudiant({numeroEtudiant:req.body.numeroEtudiant, nom:req.body.nom, prenom:req.body.prenom, mail:req.body.mail, login: req.body.login, mdp:mdp, classe:req.body.classe});
 
     return await newEtudiant.save();
 };
@@ -98,3 +105,4 @@ exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
 exports.processRead = processRead;
+exports.processFindByClasse = processFindByClasse;

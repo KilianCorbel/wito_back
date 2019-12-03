@@ -21,6 +21,10 @@ const etudiantSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    classe: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Classe'
+    },
     token: String
 });
 

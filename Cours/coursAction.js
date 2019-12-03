@@ -86,8 +86,26 @@ function actionRead (req, res) {
     }
 };
 
+// -- UPDATE PRESENT
+function actionUpdatePresent (req, res) {
+    console.log("Action : Cours - UPDATE PRESENT");
+
+    try{
+        CoursProcess.processUpdate(req.params.id, req.body).then((callback) => {
+            console.log("Process : Cours - UPDATE PRESENT : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    } catch(err) {
+        console.log("Process : Cours - UPDATE PRESENT : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 exports.actionFindAll = actionFindAll;
 exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;
 exports.actionRead = actionRead;
+exports.actionUpdatePresent = actionUpdatePresent;

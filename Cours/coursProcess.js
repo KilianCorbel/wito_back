@@ -40,8 +40,16 @@ async function processRead (req) {
     return await Cours.findOne({_id : new ObjectId(req.params.id)});
 };
 
+// -- UPDATE PRESENT
+async function processUpdatePresent(id, body) {
+    console.log("Process : Cours - UPDATE PRESENT : " + id);
+    
+    return await Cours.updateOne({_id : new ObjectId(id)}, {$set : body});
+};
+
 exports.processFindAll = processFindAll;
 exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
 exports.processRead = processRead;
+exports.processUpdatePresent = processUpdatePresent;

@@ -9,7 +9,7 @@ const app = express();
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect("mongodb://localhost/WITOBDD", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect("mongodb://localhost:27017/WITOBDD", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to mongoDB");
   })

@@ -24,6 +24,23 @@ function actionFindAll (req, res) {
     }
 };
 
+// -- FIND BY classe
+function actionFindByClasse(req, res) {
+    console.log("Action : Etudiant - FIND BY classe");
+
+    try{
+        EtudiantProcess.processFindByClasse(req).then((callback) => {
+            console.log("Process : Etudiant - FIND BY classe : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    }catch(err) {
+        console.log("Process : Etudiant - FIND BY classe : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 // -- CREATE
 async function actionCreate (req, res) {
     console.log("Action : Etudiant - CREATE");
@@ -108,3 +125,4 @@ exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;
 exports.actionRead = actionRead;
+exports.actionFindByClasse = actionFindByClasse;

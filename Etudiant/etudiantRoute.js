@@ -10,6 +10,7 @@ const lienCreate = '/';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
+const lienGetByClasse = "/classe/:id"
 
 //--Connexion
 router.post(lienConnection, etudiantAction.checkAuth);
@@ -28,5 +29,8 @@ router.delete(lienDelete, etudiantAction.actionDelete);
 
 // -- READ ID
 router.get(lienGet, etudiantAction.actionRead);
+
+// -- FIND BY classe
+router.get(lienGetByClasse, etudiantAction.actionFindByClasse);
 
 module.exports = router;
