@@ -5,14 +5,14 @@ ObjectId = mongoose.Types.ObjectId;
 
 // AUTHENTIFICATION CONNEXION
 function checkAuth (req, res, next) {
-    if (!req.body.login || !req.body.mdp) {
+    if (!req.body.mail || !req.body.mdp) {
       //Le cas où login ou bien le password ne serait pas soumit ou nul
       res.status(400).json({
         text: "Erreur",
         descritpion: "Mot de passe vide ou login vide"
       });
     } else {
-        Etudiant.findOne({ login: req.body.login }, function(err, etudiant) {
+        Etudiant.findOne({ mail: req.body.mail }, function(err, etudiant) {
         if (err) {
           res.status(500).json({
             text: "Erreur",
@@ -93,10 +93,10 @@ async function processDelete (req) {
 };
 
 // -- READ ID
-async function processRead (req) {
-    console.log("Process : Etudiant - READ id : " + new ObjectId(req.params.id));
+async function processRead (id) {
+    console.log("Process : Etudiant - READ id : " + new ObjectId(id));
 
-    return await Etudiant.findOne({_id : new ObjectId(req.params.id)});
+    return await Etudiant.findOne({_id : new ObjectId(id)});
 };
 
 exports.checkAuth = checkAuth;

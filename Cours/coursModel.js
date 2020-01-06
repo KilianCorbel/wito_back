@@ -34,8 +34,16 @@ const coursSchema = new mongoose.Schema({
         required : true
     },
     presents : [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Etudiant'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Etudiant'
+    }],
+    presentsProvisoire : [{
+        nom : {
+            type :  String
+        },
+        prenom : {
+            type : String
+        }
     }]
 });
 

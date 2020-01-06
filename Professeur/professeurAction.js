@@ -94,7 +94,7 @@ function actionRead (req, res) {
     console.log("Action : Professeur - READ ID");
     
     try{
-        ProfesseurProcess.processRead(req).then((callback) => {
+        ProfesseurProcess.processRead(req.params.id).then((callback) => {
             console.log("Process : Professeur - READ ID : " + JSON.stringify(callback));
 
             res.send(callback);

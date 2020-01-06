@@ -14,7 +14,7 @@ async function processFindAll () {
 async function processCreate (req, mdp) {
     console.log("Process : Cours - CREATE :" + req.body.nom);
 
-    newCours = new Cours({nom:req.body.nom, date: req.body.date, heureD:req.body.heureD, heureF:req.body.heureF, salle:req.body.salle, classe:req.body.classe, professeur:req.body.professeur});
+    newCours = new Cours({nom:req.body.nom, date: req.body.date, heureD:req.body.heureD, heureF:req.body.heureF, salle:req.body.salle, classe:req.body.classe, professeur:req.body.professeur, presents:[], presentsProvisoire:[]});
 
     return await newCours.save();
 };
@@ -34,10 +34,17 @@ async function processDelete (req) {
 };
 
 // -- READ ID
-async function processRead (req) {
-    console.log("Process : Cours - READ id : " + new ObjectId(req.params.id));
+async function processRead (id) {
+    console.log("Process : Cours - READ id : " + new ObjectId(id));
 
-    return await Cours.findOne({_id : new ObjectId(req.params.id)});
+    return await Cours.findOne({_id : new ObjectId(id)}).populate('presents');
+};
+
+// -- READ ID BY CRITERE
+async function processReadByCritere (critere, variable) {
+    console.log("Process : Cours - variable : " + variable);
+
+    return await Cours.findOne({[critere] : variable});
 };
 
 // -- UPDATE PRESENT
@@ -52,4 +59,5 @@ exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
 exports.processRead = processRead;
+exports.processReadByCritere = processReadByCritere;
 exports.processUpdatePresent = processUpdatePresent;

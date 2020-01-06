@@ -9,7 +9,8 @@ const lienCreate = '/';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
-const lienPresent = '/present/:id';
+const lienGetByCritere = '/:critere/:variable';
+const lienAddPresentByRole = '/present/:id/:role';
 
 // -- FIND ALL
 router.get(lienAll, coursAction.actionFindAll);
@@ -26,7 +27,10 @@ router.delete(lienDelete, coursAction.actionDelete);
 // -- READ ID
 router.get(lienGet, coursAction.actionRead);
 
-// -- UPDATE PRESENT
-router.get(lienPresent, coursAction.actionUpdatePresent);
+// -- READ ID BY CRITERE
+router.get(lienGetByCritere, coursAction.actionReadByCritere);
+
+// -- ADD PRESENT BY ROLE
+router.post(lienAddPresentByRole, coursAction.actionAddPresentByRole);
 
 module.exports = router;

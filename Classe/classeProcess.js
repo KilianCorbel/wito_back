@@ -34,10 +34,10 @@ async function processDelete (req) {
 };
 
 // -- READ ID
-async function processRead (req) {
-    console.log("Process : Classe - READ id : " + new ObjectId(req.params.id));
+async function processRead (id) {
+    console.log("Process : Classe - READ id : " + new ObjectId(id));
 
-    return await Classe.findOne({_id : new ObjectId(req.params.id)});
+    return await Classe.findOne({_id : new ObjectId(id)});
 };
 
 exports.processFindAll = processFindAll;

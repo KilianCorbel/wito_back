@@ -32,7 +32,10 @@ const etudiantSchema = new mongoose.Schema({
 etudiantSchema.methods = {
     authenticate: function(password) {
       // return bcrypt.compareSync(password, this.mdp);
-      return password;
+      if(password == this.mdp){
+        return true;
+      }
+      return false;
     }
   };
   

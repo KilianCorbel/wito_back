@@ -101,11 +101,11 @@ async function processDelete (req) {
 };
 
 // -- READ ID
-async function processRead (req) {
-    console.log("Process : Professeur - READ id : " + new ObjectId(req.params.id));
+async function processRead (id) {
+    console.log("Process : Professeur - READ id : " + new ObjectId(id));
 
     try{
-      return await Professeur.findOne({_id : new ObjectId(req.params.id)});
+      return await Professeur.findOne({_id : new ObjectId(id)});
     } catch(err) {
       console.log("Process : Professeur - READ : Error - " + err.name);
 
