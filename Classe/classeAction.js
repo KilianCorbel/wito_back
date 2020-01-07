@@ -103,7 +103,7 @@ function actionDelete (req, res) {
          
         res.status(400).json({
             text: "Erreur",
-            descritpion: "La classe "+ callback+" n a pas ete mise a jour"
+            descritpion: "La classe "+ callback+" n a pas ete supprime"
           })
 
         res.send(err);

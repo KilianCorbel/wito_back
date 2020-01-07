@@ -15,10 +15,20 @@ function actionFindAll (req, res) {
         EtudiantProcess.processFindAll().then((callback) => {
             console.log("Process : Etudiant - FIND ALL : " + JSON.stringify(callback));
 
+            res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "Toutes les etudiants ont ete trouvees"
+              })
+
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Etudiant - FIND ALL : Error - " + err);
+
+        res.status(400).json({
+            text: "Erreur",
+            descritpion: "Aucun etudiants n a ete trouve"
+          })
 
         res.send(err);
     }
@@ -32,10 +42,20 @@ function actionFindByClasse(req, res) {
         EtudiantProcess.processFindByClasse(req).then((callback) => {
             console.log("Process : Etudiant - FIND BY classe : " + JSON.stringify(callback));
 
+            res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "Toutes les etudiants de la classe ont ete trouvees d"
+              })
+
             res.send(callback);
         });
     }catch(err) {
         console.log("Process : Etudiant - FIND BY classe : Error - " + err);
+
+        res.status(400).json({
+            text: "Erreur",
+            descritpion: "Aucun etudiants de la classe n a ete trouve"
+          })
 
         res.send(err);
     }
@@ -59,10 +79,20 @@ async function actionCreate (req, res) {
         EtudiantProcess.processCreate(req, mdp).then((callback) => {
             console.log("Process : Etudiant - CREATE : " + callback);
 
+            res.status(201).json({
+                text: "Create",
+                descritpion: "L etudiant " +callback +" a ete cree"
+              }) 
+
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Etudiant - CREATE : Error - " + err);
+        
+        res.status(400).json({
+            text: "Erreur",
+            descritpion: "L etudiant n a pas ete cree"
+          })
 
         res.send(err);
     }
@@ -76,10 +106,20 @@ function actionUpdate (req, res) {
         EtudiantProcess.processUpdate(req.params.id, req.body).then((callback) => {
             console.log("Process : Etudiant - UPDATE : " + JSON.stringify(callback));
 
+            res.status(201).json({
+                text: "Update",
+                descritpion: "L etudiant " +callback +" a ete mise a jour"
+              }) 
+
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Etudiant - UPDATE : Error - " + err);
+
+        res.status(400).json({
+            text: "Erreur",
+            descritpion: "L etudiant n a pas ete mise a jour"
+          })
 
         res.send(err);
     }
@@ -93,10 +133,21 @@ function actionDelete (req, res) {
         EtudiantProcess.processDelete(req).then((callback) => {
             console.log("Process : Etudiant - DELETE : " + JSON.stringify(callback));
 
+            res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "L etudiant " + callback+" a ete supprimee"
+              })
+
             res.send(callback);
+
         });
     } catch(err) {
         console.log("Process : Etudiant - DELETE : Error - " + err);
+
+        res.status(400).json({
+            text: "Erreur",
+            descritpion: "L etudiant "+ callback+" n a pas ete supprime"
+          })
 
         res.send(err);
     }
@@ -110,11 +161,20 @@ function actionRead (req, res) {
         EtudiantProcess.processRead(req.params.id).then((callback) => {
             console.log("Process : Etudiant - READ ID : " + JSON.stringify(callback));
 
+            res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "L etudiant " + callback+" a ete lu"
+              })
+
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Etudiant - READ ID : Error - " + err);
-
+        
+        res.status(400).json({
+            text: "Erreur",
+            descritpion: "La classe "+ callback+" n a pas ete lu"
+          })
         res.send(err);
     }
 };
