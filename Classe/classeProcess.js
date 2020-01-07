@@ -14,7 +14,7 @@ async function processFindAll () {
 async function processCreate (req, mdp) {
     console.log("Process : Classe - CREATE :" + req.body.nom);
 
-    newClasse = new Classe({idClasse:req.body.idClasse, filiere:req.body.filiere, annee:req.body.annee});
+    newClasse = new Classe({filiere:req.body.filiere, annee:req.body.annee, label:req.body.label});
 
     return await newClasse.save();
 };
@@ -34,10 +34,10 @@ async function processDelete (req) {
 };
 
 // -- READ ID
-async function processRead (req) {
-    console.log("Process : Classe - READ id : " + new ObjectId(req.params.id));
+async function processRead (id) {
+    console.log("Process : Classe - READ id : " + new ObjectId(id));
 
-    return await Classe.findOne({_id : new ObjectId(req.params.id)});
+    return await Classe.findOne({_id : new ObjectId(id)});
 };
 
 exports.processFindAll = processFindAll;

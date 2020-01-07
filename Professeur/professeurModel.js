@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 //model pour un professeur
 
@@ -18,10 +18,6 @@ const professeurSchema = new mongoose.Schema({
         required : true,
         regex: new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
     },
-    login : {
-        type : String,
-        required : true
-    },
     mdp : {
         type : String,
         required : true
@@ -31,7 +27,11 @@ const professeurSchema = new mongoose.Schema({
 // ----- fonctions pour la connexion -----
 professeurSchema.methods = {
     authenticate: function(password) {
-      return bcrypt.compareSync(password, this.mdp);
+      // return bcrypt.compareSync(password, this.mdp);
+      if(password == this.mdp){
+        return true;
+      }
+      return false;
     }
   };
   

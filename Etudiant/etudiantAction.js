@@ -1,6 +1,6 @@
 // -- Load model needed for the project
 const EtudiantProcess = require('./etudiantProcess');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 // Connexion
 function checkAuth (req, res, next) {
@@ -24,17 +24,37 @@ function actionFindAll (req, res) {
     }
 };
 
+// -- FIND BY classe
+function actionFindByClasse(req, res) {
+    console.log("Action : Etudiant - FIND BY classe");
+
+    try{
+        EtudiantProcess.processFindByClasse(req).then((callback) => {
+            console.log("Process : Etudiant - FIND BY classe : " + JSON.stringify(callback));
+
+            res.send(callback);
+        });
+    }catch(err) {
+        console.log("Process : Etudiant - FIND BY classe : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 // -- CREATE
 async function actionCreate (req, res) {
     console.log("Action : Etudiant - CREATE");
 
-    try{        
+    try{ 
+        /*       
         mdp = await new Promise((resolve, reject) => {
             bcrypt.hash(req.body.mdp, 10, async function (err, hash){
                 console.log("Action : Etudiant - hash : " + hash);
                 resolve(hash);
             });
         })
+        */
+        mdp = req.body.mdp;
 
         EtudiantProcess.processCreate(req, mdp).then((callback) => {
             console.log("Process : Etudiant - CREATE : " + callback);
@@ -87,7 +107,7 @@ function actionRead (req, res) {
     console.log("Action : Etudiant - READ ID");
     
     try{
-        EtudiantProcess.processRead(req).then((callback) => {
+        EtudiantProcess.processRead(req.params.id).then((callback) => {
             console.log("Process : Etudiant - READ ID : " + JSON.stringify(callback));
 
             res.send(callback);
@@ -105,3 +125,4 @@ exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;
 exports.actionRead = actionRead;
+exports.actionFindByClasse = actionFindByClasse;
