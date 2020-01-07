@@ -170,10 +170,10 @@ function actionRead (req, res) {
         });
     } catch(err) {
         console.log("Process : Etudiant - READ ID : Error - " + err);
-        
+
         res.status(400).json({
             text: "Erreur",
-            descritpion: "La classe "+ callback+" n a pas ete lu"
+            descritpion: "L etudiant "+ callback+" n a pas ete lu"
           })
         res.send(err);
     }
