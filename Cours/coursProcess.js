@@ -27,10 +27,10 @@ async function processUpdate (id, body) {
 };
 
 // -- DELETE
-async function processDelete (req) {
-    console.log("Process : Cours - DELETE id : " + req.params.id);
+async function processDelete (id) {
+    console.log("Process : Cours - DELETE id : " + id);
     
-    return await Cours.find({_id : new ObjectId(req.params.id)}).deleteOne();
+    return await Cours.find({_id : new ObjectId(id)}).deleteOne();
 };
 
 // -- READ ID
@@ -40,16 +40,30 @@ async function processRead (id) {
     return await Cours.findOne({_id : new ObjectId(id)}).populate('presents');
 };
 
-// -- READ ID BY CRITERE
+// -- READ BY CRITERE
 async function processReadByCritere (critere, variable) {
-    console.log("Process : Cours - variable : " + variable);
+    console.log("Process : Cours - READ BY ROLE : " + variable);
 
-    return await Cours.findOne({[critere] : variable});
+    return await Cours.find({[critere] : variable}).populate('classe').populate('professeur');
+};
+
+// -- READ BY PROFESSEUR ID
+async function processReadByProfesseurId (id) {
+    console.log("Process : Cours - READ BY PROFESSEUR ID : " + new ObjectId(id));
+
+    return await Cours.find({professeur:{ _id: new ObjectId(id) }}).populate('classe').populate({path: 'professeur', populate: {path: 'utilisateur'}});
+};
+
+// -- READ BY CLASSE
+async function processReadByClasse (id) {
+    console.log("Process : Cours - READ BY CLASSE : " + new ObjectId(id));
+
+    return await Cours.find({classe:{ _id: new ObjectId(id) }}).populate('classe').populate({path: 'professeur', populate: {path: 'utilisateur'}});
 };
 
 // -- UPDATE PRESENT
 async function processUpdatePresent(id, body) {
-    console.log("Process : Cours - UPDATE PRESENT : " + id);
+    console.log("Process : Cours - UPDATE PRESENT : " + new ObjectId(id));
     
     return await Cours.updateOne({_id : new ObjectId(id)}, {$set : body});
 };
@@ -60,4 +74,6 @@ exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
 exports.processRead = processRead;
 exports.processReadByCritere = processReadByCritere;
+exports.processReadByProfesseurId = processReadByProfesseurId;
+exports.processReadByClasse = processReadByClasse;
 exports.processUpdatePresent = processUpdatePresent;

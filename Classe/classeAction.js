@@ -9,20 +9,21 @@ function actionFindAll (req, res) {
         ClasseProcess.processFindAll().then((callback) => {
             console.log("Process : Classe - FIND ALL : " + JSON.stringify(callback));
 
-            res.status(200).json({
+/*             res.status(200).json({
+                res: callback,
                 text: "Traitement Ok",
-                descritpion: "Toutes les classes ont ete trouvees"
-              })
+                descritpion: "Toutes les classes ont étés trouvées"
+              }) */
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - FIND ALL : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "Aucune classe n a ete trouve"
-          })
+            descritpion: "Aucune classe n'a été trouvée"
+          }) */
 
         res.send(err);
     }
@@ -36,20 +37,20 @@ async function actionCreate (req, res) {
         ClasseProcess.processCreate(req).then((callback) => {
             console.log("Process : Classe - CREATE : " + callback);
 
-            res.status(201).json({
+/*             res.status(201).json({
                 text: "Create",
-                descritpion: "La classe " +callback +" a ete cree"
-              }) 
+                descritpion: "La classe a été créée"
+              })  */
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - CREATE : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "La classe n a pas ete cree"
-          })
+            descritpion: "La classe n'a pas été créée"
+          }) */
 
         res.send(err);
     }
@@ -63,20 +64,20 @@ function actionUpdate (req, res) {
         ClasseProcess.processUpdate(req.params.id, req.body).then((callback) => {
             console.log("Process : Classe - UPDATE : " + JSON.stringify(callback));
             
-            res.status(201).json({
+/*             res.status(201).json({
                 text: "Update",
-                descritpion: "La classe " +callback +" a ete mise a jour"
-              }) 
+                descritpion: "La classe a été mise à jour"
+              }) */ 
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - UPDATE : Error - " + err);
         
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "La classe n a pas ete mise a jour"
-          })
+            descritpion: "La classe n'a pas été mise à jour"
+          }) */
 
         res.send(err);
     }
@@ -87,13 +88,13 @@ function actionDelete (req, res) {
     console.log("Action : Classe - DELETE");
 
     try{
-        ClasseProcess.processDelete(req).then((callback) => {
+        ClasseProcess.processDelete(req.params.id).then((callback) => {
             console.log("Process : Classe - DELETE : " + JSON.stringify(callback));
 
-            res.status(200).json({
+/*             res.status(200).json({
                 text: "Traitement Ok",
-                descritpion: "La classe " + callback+" a ete supprimee"
-              })
+                descritpion: "La classe a été supprimée"
+              }) */
 
 
             res.send(callback);
@@ -101,10 +102,10 @@ function actionDelete (req, res) {
     } catch(err) {
         console.log("Process : Classe - DELETE : Error - " + err);
          
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "La classe "+ callback+" n a pas ete supprime"
-          })
+            descritpion: "La classe n'a pas été supprimée"
+          }) */
 
         res.send(err);
     }
@@ -118,10 +119,10 @@ function actionRead (req, res) {
         ClasseProcess.processRead(req.params.id).then((callback) => {
             console.log("Process : Classe - READ ID : " + JSON.stringify(callback));
 
-            res.status(200).json({
+/*             res.status(200).json({
                 text: "Traitement Ok",
-                descritpion: "La classe " + callback+" a ete lu"
-              })
+                descritpion: "La classe a été trouvée"
+              }) */
 
 
             res.send(callback);
@@ -129,10 +130,10 @@ function actionRead (req, res) {
     } catch(err) {
         console.log("Process : Classe - READ ID : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "La classe "+ callback+" n a pas ete lu"
-          })
+            descritpion: "La classe a été trouvée"
+          }) */
 
         res.send(err);
     }

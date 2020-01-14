@@ -1,11 +1,6 @@
 // -- Load model needed for the project
 const ProfesseurProcess = require('./professeurProcess');
-// const bcrypt = require('bcrypt');
-
-// Connexion
-function checkAuth (req, res, next) {
-    ProfesseurProcess.checkAuth(req, res);
-};
+const UtilisateurProcess = require('../Utilisateur/utilisateurProcess');
 
 // -- FIND ALL
 function actionFindAll (req, res) {
@@ -15,21 +10,20 @@ function actionFindAll (req, res) {
         ProfesseurProcess.processFindAll().then((callback) => {
             console.log("Process : Professeur - FIND ALL : " + JSON.stringify(callback));
 
-            res.status(200).json({
+/*             res.status(200).json({
                 text: "Traitement Ok",
-                descritpion: "Tous les professeurs ont ete trouvees"
-              })
+                descritpion: "Tous les professeurs ont étés trouvés"
+              }) */
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Professeur - FIND ALL : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "Aucun professeur n a ete trouve"
-          })
-
+            descritpion: "Aucun professeur n'a été trouvé"
+          }) */
 
         res.send(err);
     }
@@ -40,43 +34,23 @@ async function actionCreate (req, res) {
     console.log("Action : Professeur - CREATE");
 
     try{ 
-        /*       
-        mdp = await new Promise((resolve, reject) => {
-            bcrypt.hash(req.body.mdp, 10, async function (err, hash){
-                console.log("Action : Etudiant - hash : " + hash);
-                resolve(hash);
-            });
-        })
-        */
-        mdp = req.body.mdp;
-
-        ProfesseurProcess.processCreate(req, mdp).then((callback) => {
+        ProfesseurProcess.processCreate(req).then((callback) => {
             console.log("Process : Professeur - CREATE : " + callback);
 
-            if(callback.name){
-                console.log("Process : Professeur - CREATE name : " + callback.name);
-
-                res.status(201).json({
-                    text: "Create",
-                    descritpion: "Le nom du professeur " +callback.name +" a ete cree"
-                  }) 
-
-            }
-
-            res.status(201).json({
+/*             res.status(201).json({
                 text: "Create",
-                descritpion: "Le professeur " +callback +" a ete cree"
-              }) 
+                descritpion: "Le professeur a été créé"
+              })  */
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Professeur - CREATE : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "Le professeur n a pas ete cree"
-          })
+            descritpion: "Le professeur n'a pas été créé"
+          }) */
 
         res.send(err);
     }
@@ -90,20 +64,20 @@ function actionUpdate (req, res) {
         ProfesseurProcess.processUpdate(req.params.id, req.body).then((callback) => {
             console.log("Process : Professeur - UPDATE : " + JSON.stringify(callback));
 
-            res.status(201).json({
+/*             res.status(201).json({
                 text: "Update",
-                descritpion: "Le professeur " +callback +" a ete mise a jour"
-              }) 
+                descritpion: "Le professeur a été mise à jour"
+              }) */ 
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Professeur - UPDATE : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "Le professeur n a pas ete mise a jour"
-          })
+            descritpion: "Le professeur n'a pas été mise à jour"
+          }) */
 
         res.send(err);
     }
@@ -114,23 +88,32 @@ function actionDelete (req, res) {
     console.log("Action : Professeur - DELETE");
 
     try{
-        ProfesseurProcess.processDelete(req).then((callback) => {
-            console.log("Process : Professeur - DELETE : " + JSON.stringify(callback));
+        ProfesseurProcess.processRead(req.params.id).then((professeur) => {
+            console.log("Process : Professeur - READ ID : " + JSON.stringify(professeur));
 
-            res.status(200).json({
-                text: "Traitement Ok",
-                descritpion: "Le professeur " + callback+" a ete supprimee"
-              })
+            UtilisateurProcess.processDelete(professeur.utilisateur._id).then((utilisateur) => {
+                console.log("Process : Utilisateur - DELETE : " + JSON.stringify(utilisateur));
 
-            res.send(callback);
+                ProfesseurProcess.processDelete(req.params.id).then((callback) => {
+                    console.log("Process : Professeur - DELETE : " + JSON.stringify(callback));
+        
+/*                     res.status(200).json({
+                        text: "Traitement Ok",
+                        descritpion: "Le professeur a été supprimé"
+                      }) */
+        
+                    res.send(callback);
+                });
+            });
+
         });
     } catch(err) {
         console.log("Process : Professeur - DELETE : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "Le professeur "+ callback+" n a pas ete supprime"
-          })
+            descritpion: "Le professeur n'a pas été supprimé"
+          }) */
 
         res.send(err);
     }
@@ -144,26 +127,25 @@ function actionRead (req, res) {
         ProfesseurProcess.processRead(req.params.id).then((callback) => {
             console.log("Process : Professeur - READ ID : " + JSON.stringify(callback));
 
-            res.status(200).json({
+/*             res.status(200).json({
                 text: "Traitement Ok",
-                descritpion: "Le professeur " + callback+" a ete lu"
-              })
+                descritpion: "Le professeur a été trouvé"
+              }) */
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Professeur - READ ID : Error - " + err);
 
-        res.status(400).json({
+/*         res.status(400).json({
             text: "Erreur",
-            descritpion: "Le professeur "+ callback+" n a pas ete lu"
-          })
+            descritpion: "Le professeur n'a pas été trouvé"
+          }) */
 
         res.send(err);
     }
 };
 
-exports.checkAuth = checkAuth;
 exports.actionFindAll = actionFindAll;
 exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;

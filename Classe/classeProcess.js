@@ -27,10 +27,10 @@ async function processUpdate (id, body) {
 };
 
 // -- DELETE
-async function processDelete (req) {
-    console.log("Process : Classe - DELETE id : " + req.params.id);
+async function processDelete (id) {
+    console.log("Process : Classe - DELETE id : " + id);
     
-    return await Classe.find({_id : new ObjectId(req.params.id)}).deleteOne();
+    return await Classe.find({_id : new ObjectId(id)}).deleteOne();
 };
 
 // -- READ ID

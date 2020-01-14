@@ -4,15 +4,11 @@ const router = express.Router();
 // -- Load model needed for the project
 const professeurAction = require('./professeurAction');
 
-const lienConnection = "/auth";
 const lienAll = '/';
 const lienCreate = '/';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
-
-//--Connexion
-router.post(lienConnection, professeurAction.checkAuth);
 
 // -- FIND ALL
 router.get(lienAll, professeurAction.actionFindAll);

@@ -4,16 +4,12 @@ const router = express.Router();
 // -- Load model needed for the project
 const etudiantAction = require('./etudiantAction');
 
-const lienConnection = "/auth";
 const lienAll = '/';
 const lienCreate = '/';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
 const lienGetByClasse = "/classe/:id"
-
-//--Connexion
-router.post(lienConnection, etudiantAction.checkAuth);
 
 // -- FIND ALL
 router.get(lienAll, etudiantAction.actionFindAll);
