@@ -7,7 +7,7 @@ ObjectId = mongoose.Types.ObjectId;
 async function processFindAll () {
   console.log("Process : Etudiant - FIND ALL");
 
-  return await Etudiant.find().populate('utilisateur');
+  return await Etudiant.find().populate('utilisateur').populate('classe');
 };
 
 // -- FIND BY CLASSE
