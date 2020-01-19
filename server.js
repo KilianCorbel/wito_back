@@ -5,8 +5,11 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+//ES6 promises
+mongoose.Promise = global.Promise;
+
 mongoose
-  .connect("mongodb://localhost/WITOBDD", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect("mongodb://localhost:27017/WITOBDD", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to mongoDB");
   })
@@ -33,4 +36,19 @@ app.use(function (req, res, next) {
     next();
 });
 
-//app.use('/path',require('./path/route'));
+//Routes
+app.use('/classes',require('./Classe/classeRoute'));
+app.use('/cours',require('./Cours/coursRoute'));
+app.use("/etudiants", require("./Etudiant/etudiantRoute"));
+app.use("/professeurs", require("./Professeur/professeurRoute"));
+app.use("/utilisateurs", require("./Utilisateur/utilisateurRoute"));
+
+/*
+  const Classe = require("./Classe/classeModel");
+  new Classe({filiere:"MIAGE INI", annee:"L3", label:"L3 MIAGE INI"}).save();
+  new Classe({filiere:"MIAGE ALT", annee:"L3", label:"L3 MIAGE ALT"}).save();
+  new Classe({filiere:"MIAGE INI", annee:"M1", label:"M1 MIAGE INI"}).save();
+  new Classe({filiere:"MIAGE ALT", annee:"M1", label:"M1 MIAGE ALT"}).save();
+  new Classe({filiere:"MIAGE INI", annee:"M2", label:"M2 MIAGE INI"}).save();
+  new Classe({filiere:"MIAGE ALT", annee:"M2", label:"M2 MIAGE ALT"}).save();
+*/

@@ -11,11 +11,10 @@ const classeSchema = new mongoose.Schema({
         type :  String,
         required : true,
     },
-    idClasse : {
-        type : String,
-        required : true
+    label : {
+        type :  String,
+        required : true,
     }
-
 });
 
 const Classe = mongoose.model("Classe", classeSchema);
