@@ -22,7 +22,29 @@ const coursSchema = new mongoose.Schema({
     salle : {
         type : String,
         required : true
-    }
+    },
+    classe : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Classe',
+        required : true
+    },
+    professeur : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Professeur',
+        required : true
+    },
+    presents : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Etudiant'
+    }],
+    presentsProvisoire : [{
+        nom : {
+            type :  String
+        },
+        prenom : {
+            type : String
+        }
+    }]
 });
 
 const Cours = mongoose.model("Cours", coursSchema);

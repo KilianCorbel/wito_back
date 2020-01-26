@@ -7,14 +7,14 @@ ObjectId = mongoose.Types.ObjectId;
 async function processFindAll () {
   console.log("Process : Cours - FIND ALL");
 
-  return await Cours.find();
+  return await Cours.find().populate('classe').populate('professeur');
 };
 
 // -- CREATE
 async function processCreate (req, mdp) {
     console.log("Process : Cours - CREATE :" + req.body.nom);
 
-    newCours = new Cours({idCours:req.body.idCours, nom:req.body.nom, heureD:req.body.heureD, heureF:req.body.heureF, date: req.body.date, salle:req.body.salle});
+    newCours = new Cours({nom:req.body.nom, date: req.body.date, heureD:req.body.heureD, heureF:req.body.heureF, salle:req.body.salle, classe:req.body.classe, professeur:req.body.professeur, presents:[], presentsProvisoire:[]});
 
     return await newCours.save();
 };
@@ -27,17 +27,45 @@ async function processUpdate (id, body) {
 };
 
 // -- DELETE
-async function processDelete (req) {
-    console.log("Process : Cours - DELETE id : " + req.params.id);
+async function processDelete (id) {
+    console.log("Process : Cours - DELETE id : " + id);
     
-    return await Cours.find({_id : new ObjectId(req.params.id)}).deleteOne();
+    return await Cours.find({_id : new ObjectId(id)}).deleteOne();
 };
 
 // -- READ ID
-async function processRead (req) {
-    console.log("Process : Cours - READ id : " + new ObjectId(req.params.id));
+async function processRead (id) {
+    console.log("Process : Cours - READ id : " + new ObjectId(id));
 
-    return await Cours.findOne({_id : new ObjectId(req.params.id)});
+    return await (await Cours.findOne({_id : new ObjectId(id)}).populate('presents').populate({path: 'professeur', populate: {path: 'utilisateur'}}));
+};
+
+// -- READ BY CRITERE
+async function processReadByCritere (critere, variable) {
+    console.log("Process : Cours - READ BY ROLE : " + variable);
+
+    return await Cours.find({[critere] : variable}).populate('classe').populate('professeur');
+};
+
+// -- READ BY PROFESSEUR ID
+async function processReadByProfesseurId (id) {
+    console.log("Process : Cours - READ BY PROFESSEUR ID : " + new ObjectId(id));
+
+    return await Cours.find({professeur:{ _id: new ObjectId(id) }}).populate('classe').populate({path: 'professeur', populate: {path: 'utilisateur'}});
+};
+
+// -- READ BY CLASSE
+async function processReadByClasse (id) {
+    console.log("Process : Cours - READ BY CLASSE : " + new ObjectId(id));
+
+    return await Cours.find({classe:{ _id: new ObjectId(id) }}).populate('classe').populate({path: 'professeur', populate: {path: 'utilisateur'}});
+};
+
+// -- UPDATE PRESENT
+async function processUpdatePresent(id, body) {
+    console.log("Process : Cours - UPDATE PRESENT : " + new ObjectId(id));
+    
+    return await Cours.updateOne({_id : new ObjectId(id)}, {$set : body});
 };
 
 exports.processFindAll = processFindAll;
@@ -45,3 +73,7 @@ exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
 exports.processRead = processRead;
+exports.processReadByCritere = processReadByCritere;
+exports.processReadByProfesseurId = processReadByProfesseurId;
+exports.processReadByClasse = processReadByClasse;
+exports.processUpdatePresent = processUpdatePresent;

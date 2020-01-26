@@ -9,10 +9,21 @@ function actionFindAll (req, res) {
         ClasseProcess.processFindAll().then((callback) => {
             console.log("Process : Classe - FIND ALL : " + JSON.stringify(callback));
 
+/*             res.status(200).json({
+                res: callback,
+                text: "Traitement Ok",
+                descritpion: "Toutes les classes ont étés trouvées"
+              }) */
+
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - FIND ALL : Error - " + err);
+
+/*         res.status(400).json({
+            text: "Erreur",
+            descritpion: "Aucune classe n'a été trouvée"
+          }) */
 
         res.send(err);
     }
@@ -26,10 +37,20 @@ async function actionCreate (req, res) {
         ClasseProcess.processCreate(req).then((callback) => {
             console.log("Process : Classe - CREATE : " + callback);
 
+/*             res.status(201).json({
+                text: "Create",
+                descritpion: "La classe a été créée"
+              })  */
+
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - CREATE : Error - " + err);
+
+/*         res.status(400).json({
+            text: "Erreur",
+            descritpion: "La classe n'a pas été créée"
+          }) */
 
         res.send(err);
     }
@@ -42,11 +63,21 @@ function actionUpdate (req, res) {
     try{
         ClasseProcess.processUpdate(req.params.id, req.body).then((callback) => {
             console.log("Process : Classe - UPDATE : " + JSON.stringify(callback));
+            
+/*             res.status(201).json({
+                text: "Update",
+                descritpion: "La classe a été mise à jour"
+              }) */ 
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - UPDATE : Error - " + err);
+        
+/*         res.status(400).json({
+            text: "Erreur",
+            descritpion: "La classe n'a pas été mise à jour"
+          }) */
 
         res.send(err);
     }
@@ -57,13 +88,24 @@ function actionDelete (req, res) {
     console.log("Action : Classe - DELETE");
 
     try{
-        ClasseProcess.processDelete(req).then((callback) => {
+        ClasseProcess.processDelete(req.params.id).then((callback) => {
             console.log("Process : Classe - DELETE : " + JSON.stringify(callback));
+
+/*             res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "La classe a été supprimée"
+              }) */
+
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - DELETE : Error - " + err);
+         
+/*         res.status(400).json({
+            text: "Erreur",
+            descritpion: "La classe n'a pas été supprimée"
+          }) */
 
         res.send(err);
     }
@@ -74,13 +116,24 @@ function actionRead (req, res) {
     console.log("Action : Classe - READ ID");
     
     try{
-        ClasseProcess.processRead(req).then((callback) => {
+        ClasseProcess.processRead(req.params.id).then((callback) => {
             console.log("Process : Classe - READ ID : " + JSON.stringify(callback));
+
+/*             res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "La classe a été trouvée"
+              }) */
+
 
             res.send(callback);
         });
     } catch(err) {
         console.log("Process : Classe - READ ID : Error - " + err);
+
+/*         res.status(400).json({
+            text: "Erreur",
+            descritpion: "La classe a été trouvée"
+          }) */
 
         res.send(err);
     }
