@@ -145,6 +145,7 @@ function actionRead (req, res) {
 // -- READ BY ROLE
 function actionReadByRole (req, res) {
     console.log("Action : Cours - READ BY ROLE");
+    console.log(req.params.role);
     
     try{
         if(req.params.role == "professeur"){

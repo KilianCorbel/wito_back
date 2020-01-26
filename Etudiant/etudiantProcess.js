@@ -51,7 +51,7 @@ async function processRead (id) {
 async function processReadByUserId (id) {
     console.log("Process : Etudiant - READ BY USER ID : " + new ObjectId(id));
 
-    return await Professeur.findOne().populate({path: 'utilisateur', match: { _id: new ObjectId(id) }});
+    return await Etudiant.findOne().populate({path: 'utilisateur', match: { _id: new ObjectId(id) }});
 };
 
 exports.processFindAll = processFindAll;
