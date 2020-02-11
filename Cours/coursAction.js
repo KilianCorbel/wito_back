@@ -233,8 +233,8 @@ function actionAddPresentByRole (req, res) {
     console.log("Action : Cours - ADD PRESENT BY ROLE");
 
     try{
-        if(req.params.role == "Etudiant"){
-            EtudiantProcess.processRead(req.body.idEtudiant).then((callback) => {
+        if(req.params.role == "etudiant"){
+            EtudiantProcess.processReadByUserId(req.body.idEtudiant).then((callback) => {
                 console.log("Process : Etudiant - READ ID : " + JSON.stringify(callback));
                 
                 if(req.body.presents == null){
@@ -253,7 +253,7 @@ function actionAddPresentByRole (req, res) {
                     res.send(callback);
                 });
             });
-        } else if(req.params.role == "Provisoire") {
+        } else if(req.params.role == "provisoire") {
             if(req.body.presentsProvisoire == null){
                 req.body.presentsProvisoire = [];
             }

@@ -9,6 +9,7 @@ const lienCreate = '/';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
+const lienValidation = "/validation/:id"
 const lienGetByClasse = "/classe/:id"
 
 // -- FIND ALL
@@ -25,6 +26,9 @@ router.delete(lienDelete, etudiantAction.actionDelete);
 
 // -- READ ID
 router.get(lienGet, etudiantAction.actionRead);
+
+// -- VALIDATION D'INSCRITPION
+//router.get(lienValidation, etudiantAction.actionValidation);
 
 // -- FIND BY classe
 router.get(lienGetByClasse, etudiantAction.actionFindByClasse);
