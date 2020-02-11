@@ -83,7 +83,7 @@ function actionRead (req, res) {
     console.log("Action : Administrateur - READ ID");
     
     try{
-        AdministrateurProcess.processRead(req.params.id).then((callback) => {
+        AdministrateurProcess.processReadByUserId(req.params.id).then((callback) => {
             console.log("Process : Administrateur - READ ID : " + JSON.stringify(callback));
             res.send(callback);
         });
