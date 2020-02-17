@@ -23,6 +23,11 @@ function checkAuth (req, res, next) {
             text: "Erreur",
             descritpion: "L'utilisateur n'existe pas"
           });
+        } else if(utilisateur.role === "inscrit") {
+          res.status(401).json({
+            text: "Erreur",
+            descritpion: "Cet étudiant n'est pas encore valide"
+          });
         } else {
           if (utilisateur.authenticate(req.body.mdp)) {
             console.log("connected");
