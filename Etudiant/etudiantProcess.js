@@ -21,8 +21,7 @@ async function processFindByClasse(req) {
 async function processFindInscrits () {
     console.log("Process : Etudiant - FIND INSCRITS");
   
-    return await Etudiant.find().populate('utilisateur');
-    //return await Etudiant.find({utilisateur:{ role: 'inscrit' }}).populate('utilisateur').populate('classe');
+    return await Etudiant.find({ "classe": {$exists:false}}).populate('utilisateur').populate('classe');
 };
 
 // -- CREATE
