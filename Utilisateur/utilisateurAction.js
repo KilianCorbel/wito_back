@@ -53,7 +53,7 @@ async function actionCreate (req, res) {
                 ProfesseurProcess.processCreate(req).then((professeur) => {
                     console.log("Process : Professeur - CREATE : " + professeur);
                 });
-            } else if (callback.role == "etudiant") {
+            } else if (callback.role == "etudiant" || callback.role == "inscrit") {
                 EtudiantProcess.processCreate(req).then((etudiant) => {
                     console.log("Process : Etudiant - CREATE : " + etudiant);
                 });

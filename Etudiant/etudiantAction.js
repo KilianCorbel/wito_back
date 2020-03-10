@@ -56,6 +56,33 @@ function actionFindByClasse(req, res) {
     }
 };
 
+// -- FIND INSCRITS
+function actionFindInscrits (req, res) {
+    console.log("Action : Etudiant - FIND INSCRITS");
+
+    try{
+        EtudiantProcess.processFindInscrits().then((callback) => {
+            console.log("Process : Etudiant - FIND INSCRITS : " + JSON.stringify(callback));
+
+/*            res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "Tous les étudiants ont étés trouvés"
+              })
+*/
+            res.send(callback);
+        });
+    } catch(err) {
+        console.log("Process : Etudiant - FIND INSCRITS : Error - " + err);
+
+ /*       res.status(400).json({
+            text: "Erreur",
+            descritpion: "Aucun étudiant n'a été trouvé"
+          })
+*/
+        res.send(err);
+    }
+};
+
 // -- CREATE
 async function actionCreate (req, res) {
     console.log("Action : Etudiant - CREATE");
@@ -173,8 +200,9 @@ function actionRead (req, res) {
 };
 
 exports.actionFindAll = actionFindAll;
+exports.actionFindByClasse = actionFindByClasse;
+exports.actionFindInscrits = actionFindInscrits;
 exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;
 exports.actionRead = actionRead;
-exports.actionFindByClasse = actionFindByClasse;

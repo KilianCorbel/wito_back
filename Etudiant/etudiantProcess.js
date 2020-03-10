@@ -17,6 +17,13 @@ async function processFindByClasse(req) {
   return await Etudiant.find({classe :{ _id: new ObjectId(req.params.id) }}).populate('utilisateur').populate('classe');
 };
 
+// -- FIND INSCRITS
+async function processFindInscrits () {
+    console.log("Process : Etudiant - FIND INSCRITS");
+  
+    return await Etudiant.find({ "classe": {$exists:false}}).populate('utilisateur').populate('classe');
+};
+
 // -- CREATE
 async function processCreate (req) {
     console.log("Process : Etudiant - CREATE :" + req.body.utilisateur);
@@ -55,9 +62,10 @@ async function processReadByUserId (id) {
 };
 
 exports.processFindAll = processFindAll;
+exports.processFindByClasse = processFindByClasse;
+exports.processFindInscrits = processFindInscrits;
 exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
 exports.processRead = processRead;
 exports.processReadByUserId = processReadByUserId;
-exports.processFindByClasse = processFindByClasse;
