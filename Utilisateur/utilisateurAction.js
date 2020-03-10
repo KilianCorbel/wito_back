@@ -2,6 +2,7 @@
 const UtilisateurProcess = require('./utilisateurProcess');
 const ProfesseurProcess = require('../Professeur/professeurProcess');
 const EtudiantProcess = require('../Etudiant/etudiantProcess');
+const AdminProcess = require('../Administrateur/administrateurProcess');
 // const bcrypt = require('bcrypt');
 
 // Connexion
@@ -57,6 +58,10 @@ async function actionCreate (req, res) {
                 EtudiantProcess.processCreate(req).then((etudiant) => {
                     console.log("Process : Etudiant - CREATE : " + etudiant);
                 });
+            } else if (callback.role == "administrateur") {
+                AdminProcess.processCreate(req).then((admin) => {
+                    console.log("Process : Professeur - CREATE : " + admin);
+                })
             }
 
             res.send(callback);
