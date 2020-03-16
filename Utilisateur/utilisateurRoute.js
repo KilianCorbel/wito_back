@@ -10,6 +10,7 @@ const lienCreate = '/';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
+const lienGetName = '/nom/:name';
 
 //--Connexion
 router.post(lienConnection, utilisateurAction.checkAuth);
@@ -28,5 +29,8 @@ router.delete(lienDelete, utilisateurAction.actionDelete);
 
 // -- READ ID
 router.get(lienGet, utilisateurAction.actionRead);
+
+// -- READ NAME
+router.get(lienGetName, utilisateurAction.actionReadName);
 
 module.exports = router;

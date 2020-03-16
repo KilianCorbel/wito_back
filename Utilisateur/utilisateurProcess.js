@@ -23,11 +23,11 @@ function checkAuth (req, res, next) {
             text: "Erreur",
             descritpion: "L'utilisateur n'existe pas"
           });
-        } else if(utilisateur.role === "inscrit") {
-          res.status(401).json({
-            text: "Erreur",
-            descritpion: "Cet étudiant n'est pas encore valide"
-          });
+        // } else if(utilisateur.role === "inscrit") {
+        //   res.status(401).json({
+        //     text: "Erreur",
+        //     descritpion: "Cet étudiant n'est pas encore valide"
+        //   });
         } else {
           if (utilisateur.authenticate(req.body.mdp)) {
             console.log("connected");
@@ -118,9 +118,22 @@ async function processRead (id) {
     }
 };
 
+async function processReadName (name) {
+  console.log("Process : Utilisateur - READ name : " + name);
+
+    try{
+      return await Utilisateur.findOne({nom : name});
+    } catch(err) {
+      console.log("Process : Utilisateur - READ : Error - " + err.name);
+
+      return err;
+    }
+};
+
 exports.checkAuth = checkAuth;
 exports.processFindAll = processFindAll;
 exports.processCreate = processCreate;
 exports.processUpdate = processUpdate;
 exports.processDelete = processDelete;
 exports.processRead = processRead;
+exports.processReadName = processReadName;

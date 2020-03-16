@@ -61,6 +61,33 @@ async function actionCreate (req, res) {
     }
 };
 
+// -- CREATE ICS
+async function actionCreateIcs (req, res) {
+    console.log("Action : Cours - CREATEICS " + req.body.lien);
+
+    try{
+        CoursProcess.processCreateIcs(req).then((cours) => {
+            console.log("Process : Cours - FIND ALL : " + JSON.stringify(cours));
+            
+/*             res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "Tous les cours ont étés trouvés"
+              }) */
+
+            res.send(cours);
+        });
+    } catch(err) {
+        console.log("Process : Cours - CREATE : Error - " + err);
+
+/*         res.status(400).json({
+            text: "Erreur",
+            descritpion: "Le cours n'a pas été créé"
+          }) */
+
+        res.send(err);
+    }
+};
+
 // -- UPDATE
 function actionUpdate (req, res) {
     console.log("Action : Cours - UPDATE");
@@ -298,3 +325,4 @@ exports.actionRead = actionRead;
 exports.actionReadByRole = actionReadByRole;
 exports.actionUpdatePresent = actionUpdatePresent;
 exports.actionAddPresentByRole = actionAddPresentByRole;
+exports.actionCreateIcs = actionCreateIcs;

@@ -124,9 +124,26 @@ function actionRead (req, res) {
     }
 };
 
+function actionReadName (req, res) {
+    console.log("Action : Utilisateur - READ name");
+    
+    try{
+        UtilisateurProcess.processReadName(name).then((callback) => {
+            console.log("Process : Utilisateur - READ name : " + JSON.stringify(callback));
+
+            res.send(callback);   
+        });
+    } catch(err) {
+        console.log("Process : Utilisateur - READ ID : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 exports.checkAuth = checkAuth;
 exports.actionFindAll = actionFindAll;
 exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;
 exports.actionRead = actionRead;
+exports.actionReadName = actionReadName;

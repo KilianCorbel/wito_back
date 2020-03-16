@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Cours = require("./coursModel");
+const Utilisateur = require('../Utilisateur/utilisateurProcess');
+const ical = require('ical');
 
 ObjectId = mongoose.Types.ObjectId;
 
@@ -18,6 +20,66 @@ async function processCreate (req, mdp) {
 
     return await newCours.save();
 };
+
+async function processCreateIcs (req) {
+    console.log("Process : ics : " + req.body.lien);
+    const classe = req.body.classe;
+    const cours = [];
+    ical.fromURL(req.body.lien, {}, function (err, data) {
+        for (let k in data) {
+            if (data.hasOwnProperty(k)) {
+                let ev = data[k];
+                if (ev.type == 'VEVENT') {
+                    let minutesD = ev.start.getMinutes();
+                    let minutesF = ev.end.getMinutes();
+                    if (minutesD == "0") {
+                        minutesD = "00";
+                    } else if (minutesF == "0") {
+                        minutesF = "00";
+                    }
+                    let date = ("0" + ev.end.getDate()).slice(-2) + "/" + ("0" + ev.end.getMonth() + 1).slice(-2) + "/" + ev.end.getFullYear();
+                    let heureD = ev.start.getHours() + ":" + minutesD;
+                    let heureF = ev.end.getHours() + ":" + minutesF;
+                    let salle = ev.location;
+
+                    let desc = ev.description.val;
+                    let from = desc.indexOf("MATIERE : ") + "MATIERE : ".length;
+                    let to = desc.indexOf("PROF");
+                    let nom = desc.substring(from, to).trim();
+
+                    let fromProf = desc.indexOf("PROF : ") + "PROF : ".length;
+                    let toProf = desc.indexOf("DUREE");
+                    let prof = desc.substring(fromProf, toProf).trim();
+                    let user;
+                    // if (prof !== "" || prof !== "null") {
+                    Utilisateur.processReadName(prof.toLowerCase()).then((callback) => {
+                        user = callback;
+                    })
+                    console.log(user);
+                    if (user != null) {
+
+                    }
+                    
+                    
+                    console.log("date " +date);
+                    console.log("heureD "+ heureD);
+                    console.log("heureF " + heureF);
+                    console.log("nom " + nom);
+                    console.log("salle " + salle);
+                    console.log("prof " + prof);
+                    
+
+                    
+
+                    //let newCours = new Cours({nom:result, date:${ev.end.getDay()}/${ev.end.getMonth()}/${ev.end.getFullYear()}})
+                    //console.log(`description : ${ev.description.val} start : ${ev.start.getHours()}:${ev.start.getMinutes()} end : ${ev.end.getHours()}:${ev.end.getMinutes()} date : ${ev.end.getDay()}/${ev.end.getMonth()}/${ev.end.getFullYear()} location : ${ev.location}`);
+                }
+            }
+        }
+    });
+    console.log(classe);
+    return await cours;
+}
 
 // -- UPDATE
 async function processUpdate (id, body) {
@@ -77,3 +139,4 @@ exports.processReadByCritere = processReadByCritere;
 exports.processReadByProfesseurId = processReadByProfesseurId;
 exports.processReadByClasse = processReadByClasse;
 exports.processUpdatePresent = processUpdatePresent;
+exports.processCreateIcs = processCreateIcs;
