@@ -122,7 +122,7 @@ async function processReadName (name) {
   console.log("Process : Utilisateur - READ name : " + name);
 
     try{
-      return await Utilisateur.findOne({nom : name});
+      return Utilisateur.findOne({nom : { $regex : new RegExp(name, "i")} });
     } catch(err) {
       console.log("Process : Utilisateur - READ : Error - " + err.name);
 

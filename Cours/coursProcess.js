@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Cours = require("./coursModel");
+const fs = require('fs');
 const Utilisateur = require('../Utilisateur/utilisateurProcess');
+const Professeur = require('../Professeur/professeurProcess');
 const ical = require('ical');
 
 ObjectId = mongoose.Types.ObjectId;
@@ -9,7 +11,7 @@ ObjectId = mongoose.Types.ObjectId;
 async function processFindAll () {
   console.log("Process : Cours - FIND ALL");
 
-  return await Cours.find().populate('classe').populate('professeur');
+  return await Cours.find().populate('classe').populate({path: 'professeur', populate: {path: 'utilisateur'}});
 };
 
 // -- CREATE
@@ -25,11 +27,17 @@ async function processCreateIcs (req) {
     console.log("Process : ics : " + req.body.lien);
     const classe = req.body.classe;
     const cours = [];
+
+    // traitement fichier .ics
     ical.fromURL(req.body.lien, {}, function (err, data) {
         for (let k in data) {
+            // filtres données + event
             if (data.hasOwnProperty(k)) {
                 let ev = data[k];
                 if (ev.type == 'VEVENT') {
+                    // déclaration variables
+                    let newCours;
+                    // mise au format minutes ("xx")
                     let minutesD = ev.start.getMinutes();
                     let minutesF = ev.end.getMinutes();
                     if (minutesD == "0") {
@@ -37,47 +45,79 @@ async function processCreateIcs (req) {
                     } else if (minutesF == "0") {
                         minutesF = "00";
                     }
-                    let date = ("0" + ev.end.getDate()).slice(-2) + "/" + ("0" + ev.end.getMonth() + 1).slice(-2) + "/" + ev.end.getFullYear();
+
+                    // mise au format mois
+                    let month = ev.end.getMonth() + 1;
+                    let date = ("0" + ev.end.getDate()).slice(-2) + "/" + ("0" + month).slice(-2) + "/" + ev.end.getFullYear();
+                    // heures
                     let heureD = ev.start.getHours() + ":" + minutesD;
                     let heureF = ev.end.getHours() + ":" + minutesF;
                     let salle = ev.location;
 
+                    // desc = balise DESCRIPTION du .ics, découpage de string pour récupérer le nom du cours
                     let desc = ev.description.val;
                     let from = desc.indexOf("MATIERE : ") + "MATIERE : ".length;
                     let to = desc.indexOf("PROF");
                     let nom = desc.substring(from, to).trim();
 
+                    // pareil pour le nom du prof
                     let fromProf = desc.indexOf("PROF : ") + "PROF : ".length;
                     let toProf = desc.indexOf("DUREE");
                     let prof = desc.substring(fromProf, toProf).trim();
-                    let user;
-                    // if (prof !== "" || prof !== "null") {
-                    Utilisateur.processReadName(prof.toLowerCase()).then((callback) => {
-                        user = callback;
-                    })
-                    console.log(user);
-                    if (user != null) {
+                    let idProf;
 
+                    // observation comportement dans un txt
+                    // fs.writeFile("result.txt","test\n" + prof +"\n", function(err) {
+                    //     if(err) throw err;
+                    // });
+
+                    // check si prof a une valeur
+                    if (prof.trim() !== "") {
+                        // cherche à trouver le nom du prof dans les utilisateurs
+                        Utilisateur.processReadName(prof.toLowerCase()).then((callback) => {
+                            if (callback !== null) {
+                                // récup l'id utilisateur du prof
+                                idProf = callback._id;
+                                
+                                // récup infos dans table professeur
+                                Professeur.processReadByUserId(idProf).then((callback) => {
+                                    idProf = callback._id;
+    
+                                    // création et enregistrement du cours
+                                    newCours = new Cours({nom:nom, date: date, heureD:heureD, heureF:heureF, salle:salle, classe:classe, professeur: new ObjectId(idProf), presents:[], presentsProvisoire:[]});
+                                    newCours.save();
+                                    // fs.appendFile("result.txt",JSON.stringify(newCours)+"\n", function(err) {
+                                    //     if(err) throw err;
+                                    // });
+                                })
+                            }
+                        })
+                        // else si prof pas de valeur
+                    } else {
+                        // récup prof "inconnu" (prof "inconnu" => prérequis de fonctionnement)
+                        Utilisateur.processReadName("inconnu").then((callback) => {
+                            if (callback !== null) {
+                                idProf = callback._id;
+                                
+                                // récup infos dans table professeur
+                                Professeur.processReadByUserId(idProf).then((callback) => {
+                                    idProf = callback._id;
+    
+                                    // création & save cours
+                                    newCours = new Cours({nom:nom, date: date, heureD:heureD, heureF:heureF, salle:salle, classe:classe, professeur: new ObjectId(idProf), presents:[], presentsProvisoire:[]});
+                                    newCours.save();
+                                    // fs.appendFile("result.txt",JSON.stringify(newCours)+"\n", function(err) {
+                                    //     if(err) throw err;
+                                    // });
+                                })
+                            }
+                        })
                     }
-                    
-                    
-                    console.log("date " +date);
-                    console.log("heureD "+ heureD);
-                    console.log("heureF " + heureF);
-                    console.log("nom " + nom);
-                    console.log("salle " + salle);
-                    console.log("prof " + prof);
-                    
-
-                    
-
-                    //let newCours = new Cours({nom:result, date:${ev.end.getDay()}/${ev.end.getMonth()}/${ev.end.getFullYear()}})
-                    //console.log(`description : ${ev.description.val} start : ${ev.start.getHours()}:${ev.start.getMinutes()} end : ${ev.end.getHours()}:${ev.end.getMinutes()} date : ${ev.end.getDay()}/${ev.end.getMonth()}/${ev.end.getFullYear()} location : ${ev.location}`);
                 }
             }
         }
+        console.log("Bulk upload cours done");
     });
-    console.log(classe);
     return await cours;
 }
 

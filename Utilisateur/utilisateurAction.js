@@ -129,7 +129,7 @@ function actionReadName (req, res) {
     
     try{
         UtilisateurProcess.processReadName(name).then((callback) => {
-            console.log("Process : Utilisateur - READ name : " + JSON.stringify(callback));
+            console.log("action : Utilisateur - READ name : " + JSON.stringify(callback));
 
             res.send(callback);   
         });
