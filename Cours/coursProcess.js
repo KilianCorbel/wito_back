@@ -137,9 +137,10 @@ async function processDelete (id) {
 
 // -- READ ID
 async function processRead (id) {
-    console.log("Process : Cours - READ id : " + new ObjectId(id));
+    console.log("Process : Cours - READ id : " + id);
+    console.log("Process : Cours - READ id : " + JSON.stringify(id));
 
-    return await Cours.findOne({_id : new ObjectId(id)}).populate('presents').populate({path: 'professeur', populate: {path: 'utilisateur'}});
+    return await Cours.findOne({_id : new ObjectId(id)}).populate('presents').populate('classe').populate({path: 'professeur', populate: {path: 'utilisateur'}});
 };
 
 // -- READ BY CRITERE
