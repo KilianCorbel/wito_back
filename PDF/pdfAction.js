@@ -19,34 +19,25 @@ function actionGenerate (req, res) {
             orientation: "portrait",
             border: "10mm",
             header: {
-                height: "45mm",
-                contents: '<div style="font-size: 44px; font-weight: bold; text-align: center;">Feuille de présence</div>'
+                height: "35mm",
+                contents: '<div style="font-size: 32px; font-weight: bold; text-align: center;">Feuille de présence</div>'
             },
             "footer": {
-                "height": "28mm",
+                "height": "10mm",
                 "contents": {
-                    first: 'Cover page',
-                    2: 'Second page', // Any page number is working. 1-based index
-                    default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
-                    last: 'Last Page'
+                    // first: 'Cover page',
+                    // 2: 'Second page', // Any page number is working. 1-based index
+                    // default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
+                    // last: 'Last Page'
                 }
             }
           };
+        
+        var users = [];
+        presents.forEach(function(student) {
 
-          var users = [
-            {
-                name:"Shyam",
-                age:"26"
-            },
-            {
-                name:"Navjot",
-                age:"26"
-            },
-            {
-                name:"Vitthal",
-                age:"26"
-            }
-        ]
+        })
+
         var document = {
             html: html,
             data: {
@@ -58,15 +49,15 @@ function actionGenerate (req, res) {
                 classe: callback.classe.label,
                 professeur: callback.professeur.utilisateur,
                 presents: callback.presents,
-                presentsProvisoire: callback.presentsProvisoire,
-                users: users
+                presentsProvisoire: callback.presentsProvisoire
             },
-            path: "./output.pdf"
+            path: "./"+callback.nom+".pdf"
         };
 
         pdf.create(document, options)
         .then(res => {
             console.log(res)
+            return res;
         })
         .catch(error => {
             console.error(error)
