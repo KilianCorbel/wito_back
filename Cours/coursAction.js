@@ -61,6 +61,33 @@ async function actionCreate (req, res) {
     }
 };
 
+// -- CREATE ICS
+async function actionCreateIcs (req, res) {
+    console.log("Action : Cours - CREATEICS " + req.body.lien);
+
+    try{
+        CoursProcess.processCreateIcs(req).then((cours) => {
+            console.log("Process : Cours - FIND ALL : " + JSON.stringify(cours));
+            
+/*             res.status(200).json({
+                text: "Traitement Ok",
+                descritpion: "Tous les cours ont étés trouvés"
+              }) */
+
+            res.send(cours);
+        });
+    } catch(err) {
+        console.log("Process : Cours - CREATE : Error - " + err);
+
+/*         res.status(400).json({
+            text: "Erreur",
+            descritpion: "Le cours n'a pas été créé"
+          }) */
+
+        res.send(err);
+    }
+};
+
 // -- UPDATE
 function actionUpdate (req, res) {
     console.log("Action : Cours - UPDATE");
@@ -145,6 +172,8 @@ function actionRead (req, res) {
 // -- READ BY ROLE
 function actionReadByRole (req, res) {
     console.log("Action : Cours - READ BY ROLE");
+    console.log(req.params.role);
+    console.log(req.params.id);
     
     try{
         if(req.params.role == "professeur"){
@@ -233,8 +262,8 @@ function actionAddPresentByRole (req, res) {
     console.log("Action : Cours - ADD PRESENT BY ROLE");
 
     try{
-        if(req.params.role == "Etudiant"){
-            EtudiantProcess.processRead(req.body.idEtudiant).then((callback) => {
+        if(req.params.role == "etudiant"){
+            EtudiantProcess.processReadByUserId(req.body.idEtudiant).then((callback) => {
                 console.log("Process : Etudiant - READ ID : " + JSON.stringify(callback));
                 
                 if(req.body.presents == null){
@@ -253,7 +282,7 @@ function actionAddPresentByRole (req, res) {
                     res.send(callback);
                 });
             });
-        } else if(req.params.role == "Provisoire") {
+        } else if(req.params.role == "provisoire") {
             if(req.body.presentsProvisoire == null){
                 req.body.presentsProvisoire = [];
             }
@@ -296,3 +325,4 @@ exports.actionRead = actionRead;
 exports.actionReadByRole = actionReadByRole;
 exports.actionUpdatePresent = actionUpdatePresent;
 exports.actionAddPresentByRole = actionAddPresentByRole;
+exports.actionCreateIcs = actionCreateIcs;

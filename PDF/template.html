@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <mate charest="utf-8" />
+        <title>{{nom}}</title>
+    </head>
+    <body>
+        <h3>Récapitulatif du cours : {{nom}}</h3>
+        Enseignant : {{#each professeur}}{{this.prenom}} {{this.nom}}{{/each}}, <br>
+        Le {{date}}, De {{heureD}} à {{heureF}}
+        <h3>Etudiants de {{classe}}</h3>
+        <ul>
+            {{#each presents}}
+            <li>Email: {{{this.mail}}}</li>
+            <li>this: {{this}}</li>
+            <li>utilisateur: {{#each this.utilisateur}}{{/each}}</li>
+            <br>
+            {{/each}}
+        </ul>
+    </body>
+</html>

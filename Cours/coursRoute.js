@@ -6,6 +6,7 @@ const coursAction = require('./coursAction');
 
 const lienAll = '/';
 const lienCreate = '/';
+const lienCreateIcs = '/ics';
 const lienUpdate = '/:id';
 const lienDelete = '/:id';
 const lienGet = '/:id';
@@ -17,6 +18,9 @@ router.get(lienAll, coursAction.actionFindAll);
 
 // -- CREATE
 router.post(lienCreate, coursAction.actionCreate);
+
+// -- CREATE ICS
+router.post(lienCreateIcs, coursAction.actionCreateIcs);
 
 // -- UPDATE
 router.put(lienUpdate, coursAction.actionUpdate);

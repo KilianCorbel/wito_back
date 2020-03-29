@@ -21,7 +21,6 @@ const coursSchema = new mongoose.Schema({
     },
     salle : {
         type : String,
-        required : true
     },
     classe : {
         type: mongoose.Schema.Types.ObjectId,

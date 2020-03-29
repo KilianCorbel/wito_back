@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/KilianCorbel/wito_back#readme",
   "dependencies": {
+    "ical": "^0.6.0",
     "install": "^0.13.0",
     "mongoose": "^5.4.11",
     "node-pre-gyp": "^0.14.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "pdf-creator-node": "^1.4.0"
   },
   "devDependencies": {
     "express": "^4.16.4"

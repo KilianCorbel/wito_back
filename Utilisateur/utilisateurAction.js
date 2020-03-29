@@ -2,6 +2,7 @@
 const UtilisateurProcess = require('./utilisateurProcess');
 const ProfesseurProcess = require('../Professeur/professeurProcess');
 const EtudiantProcess = require('../Etudiant/etudiantProcess');
+const AdminProcess = require('../Administrateur/administrateurProcess');
 // const bcrypt = require('bcrypt');
 
 // Connexion
@@ -53,10 +54,14 @@ async function actionCreate (req, res) {
                 ProfesseurProcess.processCreate(req).then((professeur) => {
                     console.log("Process : Professeur - CREATE : " + professeur);
                 });
-            } else if (callback.role == "etudiant") {
+            } else if (callback.role == "etudiant" || callback.role == "inscrit") {
                 EtudiantProcess.processCreate(req).then((etudiant) => {
                     console.log("Process : Etudiant - CREATE : " + etudiant);
                 });
+            } else if (callback.role == "administrateur") {
+                AdminProcess.processCreate(req).then((admin) => {
+                    console.log("Process : Professeur - CREATE : " + admin);
+                })
             }
 
             res.send(callback);
@@ -119,9 +124,26 @@ function actionRead (req, res) {
     }
 };
 
+function actionReadName (req, res) {
+    console.log("Action : Utilisateur - READ name");
+    
+    try{
+        UtilisateurProcess.processReadName(name).then((callback) => {
+            console.log("action : Utilisateur - READ name : " + JSON.stringify(callback));
+
+            res.send(callback);   
+        });
+    } catch(err) {
+        console.log("Process : Utilisateur - READ ID : Error - " + err);
+
+        res.send(err);
+    }
+};
+
 exports.checkAuth = checkAuth;
 exports.actionFindAll = actionFindAll;
 exports.actionCreate = actionCreate;
 exports.actionUpdate = actionUpdate;
 exports.actionDelete = actionDelete;
 exports.actionRead = actionRead;
+exports.actionReadName = actionReadName;
